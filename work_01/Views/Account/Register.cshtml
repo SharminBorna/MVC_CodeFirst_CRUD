@@ -1,0 +1,47 @@
+﻿@model work_01.ViewModels.RegisterVM
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2 class="alert alert-info display-4">Register Here...</h2>
+<div class="row">
+    <div class="col">
+        <div class="float-left">
+            <img src="~/Images/Register.jpg" height="350" width="550"/>
+        </div>
+        <div class="float-right">
+            <div>
+                @Html.ValidationSummary(true)
+            </div>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label class="col-form-label">Username</label>
+                    @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Username, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Password</label>
+                    @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @type = "password" })
+                    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Confirm Password</label>
+                    @Html.TextBoxFor(x => x.ConfirmPassword, "Confirm Password", new { @class = "form-control", @type = "password" })
+                    @Html.ValidationMessageFor(x => x.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-success w-25">SignUp</button>
+                    <p class="mt-2">
+                        If you already have an account, you can Sign In!!
+                        @Html.ActionLink("Click Here", "Login")
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}

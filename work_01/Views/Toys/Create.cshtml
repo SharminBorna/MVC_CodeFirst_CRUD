@@ -1,0 +1,90 @@
+﻿@model work_01.ViewModels.ToyVM
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <div class="col">
+        @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "msg", OnComplete = "clearAll" }))
+        {
+            @Html.AntiForgeryToken();
+            <h2 class="display-4">Add New Toy</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                @Html.LabelFor(model => model.ToysName, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ToysName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ToysName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.cId, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.cId, ViewBag.Categories as SelectList, "----Select Categories----", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.cId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.StoreDate, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StoreDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Store Date", Type = "date" } })
+                    @Html.ValidationMessageFor(model => model.StoreDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Picture, new { @class = "form-control", type = "file" })
+                    @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="reset" class="btn btn-warning"><i class="fa fa-refresh"></i> Reset</button>
+                    <button class="btn btn-success" type="submit" id="btnCreate">
+                        <i class="fa fa-save"></i>
+                        Create <img src="~/Images/20191210151708445.gif" style="display:none" id="progress" />
+                    </button>
+                    <div id="msg"></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <a href="@Url.Action("Index","Toys","")" class="btn btn-info"><i class="fa fa-backward"></i> Back to List</a>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/DateValidator.js"></script>
+    <script>
+        $("#form0").attr("enctype", "multipart/form-data");
+        function clearAll() {
+            $("#form0").trigger("reset");
+        }
+    </script>
+    <script>
+        $("#btnCreate").click(function (e) {
+            e.preventDefault();
+            $("#progress").attr("style", "width: 20px; margin-left: 10px; margin-bottom: -5px;display:inline-block");
+            $("#btnCreate").attr("disabled", "disabled")
+            setTimeout(function () {
+                $("#form0").submit();
+                $("#progress").attr("style", "width: 20px; margin-left: 10px; margin-bottom: -5px;display:none")
+                $("#btnCreate").removeAttr("disabled")
+            }, 2000);
+        });
+    </script>
+}

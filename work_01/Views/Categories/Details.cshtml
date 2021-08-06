@@ -1,0 +1,25 @@
+﻿@model work_01.Models.Categories
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div>
+    <h4 class="display-4">Categories</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Edit","Categories",new { id = Model.cId })" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+    <a href="@Url.Action("Index","Categories","")" class="btn btn-info"><i class="fa fa-backward"></i> Back to List</a>
+</p>

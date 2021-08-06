@@ -1,0 +1,43 @@
+﻿@model IEnumerable<work_01.Models.Categories>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col">
+        <h2 class="display-4">Category List</h2>
+        <hr />
+        <div class="d-flex justify-content-end mb-2">
+            <a href="@Url.Action("Create","Categories","")" class="btn btn-success"><i class="fa fa-database"></i> Create New</a>
+        </div>
+        <table class="table table-bordered table-striped table-hover table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th> SL No </th>
+                    <th> Category </th>
+                    <th> Action </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+                {
+                    <tr id="tr-@item.Index">
+                        <td>
+                            @item.Index
+                        </td>
+                        <td>
+                            @item.Data.cName
+                        </td>
+                        <td class="">
+                            <a href="@Url.Action("Edit","Categories",new { id = item.Data.cId })" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                            <a href="@Url.Action("Details","Categories",new { id = item.Data.cId })" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                            <a href="@Url.Action("Delete","Categories",new { id = item.Data.cId })" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

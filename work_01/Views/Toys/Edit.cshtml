@@ -1,0 +1,67 @@
+﻿@model work_01.ViewModels.ToyVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="row">
+    <div class="col">
+        <div id="msg"></div>
+        @using (Html.BeginForm("Edit", "Toys", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken();
+            <h2 class="display-4">Edit @Model.ToysName</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.PicturePath)
+            <div class="form-group row">
+                @Html.LabelFor(model => model.ToysName, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ToysName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ToysName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.cId, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.cId, ViewBag.Categories as SelectList, "----Select Categories----", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.cId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.StoreDate, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StoreDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Store Date", Type = "date" } })
+                    @Html.ValidationMessageFor(model => model.StoreDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "col-form-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Picture, new { @class = "form-control", type = "file" })
+                    @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="reset" class="btn btn-warning"><i class="fa fa-refresh"></i> Reset</button>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Update</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <a href="@Url.Action("Index","Toys","")" class="btn btn-info"><i class="fa fa-backward"></i> Back to List</a>
+</div>
+@section scripts{
+    <script src="~/Scripts/DateValidator.js"></script>
+}

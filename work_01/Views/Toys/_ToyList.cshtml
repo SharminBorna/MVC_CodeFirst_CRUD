@@ -1,0 +1,49 @@
+﻿@model IEnumerable<work_01.ViewModels.ToyVM>
+
+<div class="d-flex justify-content-end">
+    <a href="@Url.Action("Create","Toys","")" class="btn btn-success"><i class="fa fa-database"></i> Add New</a>
+</div>
+<table class="table table-bordered table-striped table-hover table-sm" style="margin-top:5px;">
+    <thead class="thead-dark">
+        <tr>
+            <th>SL No</th>
+            <th>Toys Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Entry Date</th>
+            <th>Picture</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i + 1 }))
+        {
+            <tr id="tr-@item.Index">
+                <td>
+                    @item.Index
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data.ToysName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data.cName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data.StoreDate)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Data.PicturePath)" width="50" height="50" />
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Toys",new { id = item.Data.Id })" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                    <a href="@Url.Action("Delete","Toys",new { id = item.Data.Id })" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
