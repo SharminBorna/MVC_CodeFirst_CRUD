@@ -3,7 +3,7 @@ Asp.Net MVC Relational Code First CRUD Operation with Image.
 ### Project Information: 
    * __Project Owner :__ *__Sharmin Sultana__*
    * __Project Number :__ 08
-   * __Project Name :__ Toy Store
+   * __Project Name :__ Toy House (Asp.Net MVC)
    * __Project Description :__  
         * Authentication, Authorization
         * Code First
